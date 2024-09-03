@@ -1,0 +1,92 @@
+CREATE DATABASE IF NOT EXISTS GestaoFuncionarios;
+
+USE GestaoFuncionarios;
+
+CREATE TABLE IF NOT EXISTS Departamentos (
+    id_departamento INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Funcionarios (
+    id_hospede INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cargo VARCHAR(50) NOT NULL,
+    salario DECIMAL(10,2) NOT NULL,
+    id_departamento INT,
+    FOREIGN KEY (id_departamento) REFERENCES Departamentos(id_departamento)
+);
+
+CREATE TABLE IF NOT EXISTS Salarios (
+    id_salario INT AUTO_INCREMENT PRIMARY KEY,
+    id_funcionario INT NOT NULL,
+    FOREIGN KEY (id_funcionario) REFERENCES Funcionarios(id_hospede),
+    data DATE NOT NULL,
+    valor DECIMAL(10,2) NOT NULL
+);
+
+INSERT INTO Departamentos (nome) VALUES
+('Recursos Humanos'),
+('Financeiro'),
+('Tecnologia'),
+('Marketing');
+
+INSERT INTO Funcionarios (nome, cargo, salario, id_departamento) VALUES
+('Ana Silva', 'Analista de Recursos Humanos', 5000.00, 1),
+('Carlos Oliveira', 'Contador', 6000.00, 2),
+('Fernanda Souza', 'Desenvolvedora', 7000.00, 3),
+('Marcos Pereira', 'Gerente de Marketing', 5500.00, 4);
+
+INSERT INTO Salarios (id_funcionario, data, valor) VALUES
+(1, '2024-08-31', 5000.00),
+(2, '2024-08-31', 6000.00),
+(3, '2024-08-31', 7000.00),
+(4, '2024-08-31', 5500.00);
+
+SELECT f.id_hospede AS 'ID Funcionário', 
+       f.nome AS 'Nome', 
+       f.cargo AS 'Cargo', 
+       f.salario AS 'Salário', 
+       d.nome AS 'Departamento'
+FROM Funcionarios f
+JOIN Departamentos d ON f.id_departamento = d.id_departamento;
+
+SELECT d.nome AS 'Departamento',
+       SUM(f.salario) AS 'Salário Total'
+FROM Funcionarios f
+JOIN Departamentos d ON f.id_departamento = d.id_departamento
+GROUP BY d.nome;
+
+SELECT s.data AS 'Data',
+       s.valor AS 'Valor'
+FROM Salarios s
+WHERE s.id_funcionario = 1;
+
+UPDATE Funcionarios
+SET salario = 7500.00
+WHERE id_hospede = 1;
+
+UPDATE Departamentos
+SET nome = 'Novo Nome do Departamento'
+WHERE id_departamento = 2;
+
+-- Começa a transação
+START TRANSACTION;
+
+-- Exclui os salários relacionados ao funcionário
+DELETE FROM Salarios
+WHERE id_funcionario = 1;
+
+-- Exclui o funcionário
+DELETE FROM Funcionarios
+WHERE id_hospede = 1;
+
+-- Finaliza a transação
+COMMIT;
+
+SELECT COUNT(*) AS 'Numero de Funcionarios'
+FROM Funcionarios
+WHERE id_departamento = 2;
+
+DELETE FROM Departamentos
+WHERE id_departamento = 2;
+
