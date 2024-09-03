@@ -1,0 +1,105 @@
+Enunciado
+Objetivo: Criar e gerenciar um banco de dados para a gestão de funcionários, incluindo a administração de departamentos, funcionários e salários.
+
+Passos:
+
+Criar o Banco de Dados:
+
+Crie um banco de dados chamado GestaoFuncionarios.
+Criar Tabelas:
+
+Departamentos: Armazena informações sobre os departamentos.
+id_departamento (INT, AUTO_INCREMENT, PRIMARY KEY)
+nome (VARCHAR(100), NOT NULL)
+Funcionarios: Armazena informações sobre os funcionários.
+id_hospede (INT, AUTO_INCREMENT, PRIMARY KEY)
+nome (VARCHAR(100), NOT NULL)
+cargo (VARCHAR(50), NOT NULL)
+salario (DECIMAL(10, 2), NOT NULL)
+id_departamento (INT, FOREIGN KEY referenciando Departamentos(id_departamento))
+Salarios: Armazena registros de salários pagos aos funcionários.
+id_salario (INT, AUTO_INCREMENT, PRIMARY KEY)
+id_funcionario (INT, FOREIGN KEY referenciando Funcionarios(id_hospede))
+data (DATE, NOT NULL)
+valor (DECIMAL(10, 2), NOT NULL)
+Inserir Dados:
+
+Adicione registros nas tabelas Departamentos, Funcionarios e Salarios.
+Consultas e Relatórios:
+
+Liste todos os funcionários com detalhes, incluindo o departamento.
+Liste o salário total por departamento.
+Liste os salários pagos a um funcionário específico.
+Conte o número de funcionários em um departamento específico.
+Atualização de Dados:
+
+Atualize o salário de um funcionário.
+Atualize o nome de um departamento.
+Deletar Dados:
+
+Exclua salários e funcionários relacionados usando transações para garantir a integridade referencial.
+Exclua um departamento específico.
+
+# Sistema de Gestão de Funcionários
+
+Este projeto configura um banco de dados para gerenciar funcionários, departamentos e salários.
+
+## Estrutura do Banco de Dados
+
+### Tabelas
+
+1. **Departamentos**
+   - `id_departamento` (INT, AUTO_INCREMENT, PRIMARY KEY)
+   - `nome` (VARCHAR(100), NOT NULL)
+
+2. **Funcionarios**
+   - `id_hospede` (INT, AUTO_INCREMENT, PRIMARY KEY)
+   - `nome` (VARCHAR(100), NOT NULL)
+   - `cargo` (VARCHAR(50), NOT NULL)
+   - `salario` (DECIMAL(10, 2), NOT NULL)
+   - `id_departamento` (INT, FOREIGN KEY referenciando `Departamentos(id_departamento)`)
+
+3. **Salarios**
+   - `id_salario` (INT, AUTO_INCREMENT, PRIMARY KEY)
+   - `id_funcionario` (INT, FOREIGN KEY referenciando `Funcionarios(id_hospede)`)
+   - `data` (DATE, NOT NULL)
+   - `valor` (DECIMAL(10, 2), NOT NULL)
+
+## Operações
+
+1. **Criação do Banco de Dados e Tabelas**
+
+   Execute o script SQL fornecido para criar o banco de dados `GestaoFuncionarios` e as tabelas `Departamentos`, `Funcionarios`, e `Salarios`.
+
+2. **Inserção de Dados**
+
+   Adicione registros nas tabelas para inserir departamentos, funcionários e salários.
+
+3. **Consultas e Relatórios**
+
+   - Liste todos os funcionários com detalhes, incluindo o departamento.
+   - Liste o salário total por departamento.
+   - Liste os salários pagos a um funcionário específico.
+   - Conte o número de funcionários em um departamento específico.
+
+4. **Atualização de Dados**
+
+   - Atualize o salário de um funcionário.
+   - Atualize o nome de um departamento.
+
+5. **Exclusão de Dados**
+
+   - Exclua salários e funcionários relacionados usando transações para garantir a integridade referencial.
+   - Exclua um departamento específico.
+
+## Executando o Script SQL
+
+1. Conecte-se ao servidor MySQL.
+2. Copie e cole o código SQL fornecido em um cliente MySQL.
+3. Execute o script para criar e gerenciar o banco de dados `GestaoFuncionarios`.
+
+## Notas
+
+- As operações de exclusão são realizadas dentro de uma transação para garantir que a integridade referencial seja mantida.
+- Certifique-se de que o banco de dados e as tabelas estejam limpos antes de executar comandos de inserção e exclusão para evitar conflitos.
+
